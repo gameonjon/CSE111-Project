@@ -3,7 +3,7 @@ var express = require("express")
 var app = express()
 
 const Computers = require('./computers')
-var computers = new Computers('../data.sqlite')
+var computers = new Computers('data.sqlite')
 
 // Server port
 var HTTP_PORT = 8092
