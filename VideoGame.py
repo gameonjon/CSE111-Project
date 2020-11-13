@@ -76,7 +76,7 @@ def createTables(_conn):
 
         sql = """CREATE TABLE GamePlay (
                     gp_gameTitle varchar(30) NOT NULL,
-                    gp_streamer varchar(15) NOT NULL,
+                    gp_url varchar(15) NOT NULL,
                     gp_platform varchar(30) NOT NULL
                 )"""
         _conn.execute(sql)
