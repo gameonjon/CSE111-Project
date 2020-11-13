@@ -42,15 +42,17 @@ def createTables(_conn):
                     g_title varchar(30) NOT NULL,
                     g_year DATE NOT NULL,
                     g_genre varchar(15) NOT NULL,
-                    g_exclusive boolean,
-                    g_pubkey decimal(12,0),
-                    g_devkey decimal(12,0)
+                    g_exkey decimal(5,0) NOT NULL,
+                    g_pubkey decimal(12,0) NOT NULL,
+                    g_devkey decimal(12,0) NOT NULL
                     )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Platform (
-                    pf_system varchar(12) NOT NULL,
-                    pf_exclusive boolean)"""
+                    pf_system varchar(25) NOT NULL,
+                    pf_exkey decimal(5,0) NOT NULL,
+                    pf_exclusive boolean NOT NULL
+                    )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Reviews (
@@ -117,35 +119,45 @@ def populateTable_Games(_conn):
 
     try:
 
-        games = [               #(title, year, genre, exclusive, pubkey, devkey)
+        games = [               #(title, year, genre, exkey, pubkey, devkey)
 
             #Platform:
             # ps4, xbox1, xbox360, MSW, Mac OS, Linux
-            ("Rise of the Tomb Raider", '2016-02-09', "action-adventure", 0, 10001, 20001),
+            ("Rise of the Tomb Raider", '2016-02-09', "action-adventure", 11, 10001, 20001),
             #Platform: ps4, xbox1, MSW
-            ("Star Wars: Jedi Fallen Order",'2019-11-15', "action-adventure", 0, 10004, 20005),
+            ("Star Wars: Jedi Fallen Order",'2019-11-15', "action-adventure", 11, 10004, 20005),
             #Platform: ps4, xbox1, MSW
-            ("Star Wars: BattleFront 2", '2017-11-17', "shooter", 0, 10004, 20006),
+            ("Star Wars: BattleFront 2", '2017-11-17', "shooter", 11, 10004, 20006),
             #Platform: ps4, MSW
-            ("Death Stranding", '2019-11-08', "action", 0, 10006, 20009),
+            ("Death Stranding", '2019-11-08', "action", 5, 10006, 20009),
             #Platform: ps4, nintendo switch, xbox 1, msw
-            ("Overwatch", "2016-05-24", "shooter", 0, 10007, 20010),
+            ("Overwatch", "2016-05-24", "shooter", 13, 10007, 20010),
             #Platform: ps4, xbox1, msw, nintendo switch
-            ("Bioshock: The Collection", '2016-09-13', "shooter", 0, 10008, 20012),
+            ("Bioshock: The Collection", '2016-09-13', "shooter", 13, 10008, 20012),
             #Platform: ps4, xbox1, msw, linux, classic Mac os
-            ("Dying Light", '2015-01-26', "action", 0, 10010, 20017), 
+            ("Dying Light", '2015-01-26', "action", 11, 10010, 20017), 
             #Platform: ps4, xbox1, ps3, xbox360, msw
-            ("Battlefield 4", '2013-10-29', "shooter", 0, 10004, 20006),
+            ("Battlefield 4", '2013-10-29', "shooter", 11, 10004, 20006),
             #Platform: ps4, xbox1, msw
-            ("Call of Duty: Modern Warfare Remastered", '2016-11-04', "shooter", 0, 10012, 20018),
+            ("Call of Duty: Modern Warfare Remastered", '2016-11-04', "shooter", 11, 10012, 20018),
             #Platform: ps4, xbox1, msw
-            ("Tom Clancy's Ghost Recon", '2017-03-07', "tactical shooter", 0, 10013, 20021),
+            ("Tom Clancy's Ghost Recon", '2017-03-07', "tactical shooter", 11, 10013, 20021),
             #Platform: ps4 
             ("Killzone Shadow Fall", '2013-11-15', "shooter", 1, 10005, 20024),
             #Platform: ps4
             ("The Last of Us Remastered", '2014-07-29', "survival-horror", 1, 10005, 20025),
             #Platform: ps4, msw, xbox1
-            ("Star Wars: Battlefront", '2017-11-17', "shooter", 0, 10004, 20006)
+            ("Star Wars: Battlefront", '2017-11-17', "shooter", 11, 10004, 20006),
+            #Platform: ps4, msw
+            ("Horizor Zero Dawn", '2017-02-28', "action", 5, 10005, 20024),
+            #Platform: ps4, xbox1, msw
+            ("Battlefield 1", '2016-10-21', "shooter", 11, 10004, 20006),
+            #Platform: ps4, xbox1, msw
+            ("Need for Speed", '2015-11-03', "racing", 11, 10004, 20026),
+            #Platform: ps4
+            ("Spider-Man", '2018-09-07', "action-adventure", 1, 10005, 20027),
+            #Platform: ps4, xbox1, msw
+            ("Call of Duty: Modern Warfare", '2019-08-23', "shooter", 11, 10012, 20018)
 
 
         ]
@@ -213,7 +225,11 @@ def populateTable_DevPub(_conn):
             ("Ubisoft Paris", 20022),
             ("Red Storm Entertainment", 20023),
             ("Guerrilla Games", 20024),
-            ("Naughty Dog", 20025)
+            ("Naughty Dog", 20025), 
+            ("Electronic Arts", 20026),
+            ("Insomniac Games", 20027),
+            ("Sledgehammer Games", 20028)
+
 
         ]
         sql = "INSERT INTO Developer Values(?, ?)"
@@ -227,6 +243,44 @@ def populateTable_DevPub(_conn):
         print(e)
     
     print("++++++++++++++++++++++++++++++++++")
+
+def populate_Platforms(_conn):
+    print("++++++++++++++++++++++++++++++++++")
+    print("Populate Platforms")
+
+    try: 
+        exclusive = [ #platform(system, exkey, exclusive)
+            ("Playstation 4", 1, 1),
+            ("Xbox 1", 2, 1),
+            ("PC", 3, 1),
+            ("Nintendo Switch", 4, 1),
+
+            ("PC\nPlaystation 4", 5, 0),
+            ("PC\nXbox One", 6, 0),
+            ("PC\nNintendo Switch", 7, 0),
+            ("Playstation 4\nXbox One", 8, 0),
+            ("Playstation 4\nNintendo Switch", 9, 0),
+            ("Xbox One\nNintendo Switch", 10, 0),
+
+            ("PC\nPlaystation 4\nXbox One", 11, 0),
+            ("Playstation 4\nXbox One\nNintendo Switch", 12, 0),
+            ("PC\nPlaystation 4\nXbox One\nNintendo Switch", 13, 0),
+            ("PC\nPlaystation 4\nNintendo Switch", 14, 0),
+            ("PC\nXbox One\nNintendo Switch", 15, 0)
+            
+        ]
+        sql = "INSERT INTO Platform VALUES(?, ?, ?)"
+        _conn.executemany(sql, exclusive)
+
+        _conn.commit()
+        print("success")
+
+    except Error as e:
+        _conn.rollback()
+        print(e)
+
+    print("++++++++++++++++++++++++++++++++++")
+    
     
 
     
@@ -236,6 +290,8 @@ def main():
     with conn:
         createTables(conn)
         populateTable_Games(conn)
+        populateTable_DevPub(conn)
+        populate_Platforms(conn)
         #dropTables(conn)
 
     closeConnection(conn, database)
