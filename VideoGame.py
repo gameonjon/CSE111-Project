@@ -65,13 +65,20 @@ def createTables(_conn):
         sql = """CREATE TABLE Publisher (
                     p_name varchar(30) NOT NULL,
                     p_pubkey decimal(12,0)
-                    )"""
+                )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Developer (
                     d_name varchar(30) NOT NULL,
                     d_devkey decimal(12,0)
-                    )"""
+                )"""
+        _conn.execute(sql)
+
+        sql = """CREATE TABLE GamePlay (
+                    gp_gameTitle varchar(30) NOT NULL,
+                    gp_streamer varchar(15) NOT NULL,
+                    gp_platform varchar(30) NOT NULL
+                )"""
         _conn.execute(sql)
 
         _conn.commit()
@@ -102,6 +109,9 @@ def dropTables(_conn):
         _conn.execute(sql)
 
         sql = "DROP TABLE Developer"
+        _conn.execute(sql)
+
+        sql = "DROP TABLE GamePlay"
         _conn.execute(sql)
 
         _conn.commit()
@@ -306,6 +316,31 @@ def populate_Reviews(_conn):
 
     print("++++++++++++++++++++++++++++++++++")
 
+def populate_gamePlay(_conn):
+    print("++++++++++++++++++++++++++++++++++")
+    print("Populate GamePlay")
+
+    try: # GamePlay(gameTitle, website, platform)
+        gamePlay = [
+            ("Call of Duty: Modern Warfare", "https://www.twitch.tv/directory/game/Call%20Of%20Duty%3A%20Modern%20Warfare", "Twitch"),
+            ("Call of Duty: Modern Warfare", "https://www.youtube.com/results?search_query=call+of+duty+modern+warfare", "Youtube"),
+            ("Overwatch", "https://www.twitch.tv/directory/game/Overwatch", "Twitch"),
+            ("Overwatch", "https://www.youtube.com/results?search_query=overwatch", "Youtube"),
+            ("The Last of Us Remastered", "https://www.twitch.tv/directory/game/The%20Last%20of%20Us", "Twitch"),
+            ("The Last of Us Remastered", "https://www.youtube.com/results?search_query=the+last+of+us+remastered", "Youtube")
+        ]
+        sql = "INSERT INTO GamePlay Values(?, ?, ?)"
+        _conn.executemany(sql, gamePlay)
+
+        _conn.commit()
+        print("success")
+
+    except Error as e:
+        _conn.rollback()
+        print(e)
+
+    print("++++++++++++++++++++++++++++++++++")
+
     
 def main():
     database = r"data.sqlite"
@@ -316,6 +351,7 @@ def main():
         populateTable_DevPub(conn)
         populate_Platforms(conn)
         populate_Reviews(conn)
+        populate_gamePlay(conn)
         #dropTables(conn)
 
     closeConnection(conn, database)
