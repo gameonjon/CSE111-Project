@@ -56,9 +56,10 @@ def createTables(_conn):
         _conn.execute(sql)
 
         sql = """CREATE TABLE Reviews (
-                    r_rating decimal(5,0) NOT NULL,
-                    r_comment VARCHAR(50) NOT NULL,
-                    r_resource varchar(25) NOT NULL)"""
+                    r_gameTitle varchar(30) NOT NULL,
+                    r_rating decimal(2,1) NOT NULL,
+                    r_resource varchar(25) NOT NULL,
+                    r_comment VARCHAR(50) NOT NULL)"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Publisher (
@@ -250,23 +251,23 @@ def populate_Platforms(_conn):
 
     try: 
         exclusive = [ #platform(system, exkey, exclusive)
-            ("Playstation 4", 1, 1),
-            ("Xbox 1", 2, 1),
+            ("Playstation", 1, 1),
+            ("Xbox", 2, 1),
             ("PC", 3, 1),
             ("Nintendo Switch", 4, 1),
 
-            ("PC\nPlaystation 4", 5, 0),
-            ("PC\nXbox One", 6, 0),
+            ("PC\nPlaystation", 5, 0),
+            ("PC\nXbox", 6, 0),
             ("PC\nNintendo Switch", 7, 0),
-            ("Playstation 4\nXbox One", 8, 0),
-            ("Playstation 4\nNintendo Switch", 9, 0),
-            ("Xbox One\nNintendo Switch", 10, 0),
+            ("Playstation\nXbox", 8, 0),
+            ("Playstation\nNintendo Switch", 9, 0),
+            ("Xbox\nNintendo Switch", 10, 0),
 
-            ("PC\nPlaystation 4\nXbox One", 11, 0),
-            ("Playstation 4\nXbox One\nNintendo Switch", 12, 0),
-            ("PC\nPlaystation 4\nXbox One\nNintendo Switch", 13, 0),
-            ("PC\nPlaystation 4\nNintendo Switch", 14, 0),
-            ("PC\nXbox One\nNintendo Switch", 15, 0)
+            ("PC\nPlaystation\nXbox", 11, 0),
+            ("Playstation\nXbox\nNintendo Switch", 12, 0),
+            ("PC\nPlaystation\nXbox\nNintendo Switch", 13, 0),
+            ("PC\nPlaystation\nNintendo Switch", 14, 0),
+            ("PC\nXbox\nNintendo Switch", 15, 0)
             
         ]
         sql = "INSERT INTO Platform VALUES(?, ?, ?)"
@@ -281,7 +282,29 @@ def populate_Platforms(_conn):
 
     print("++++++++++++++++++++++++++++++++++")
     
-    
+def populate_Reviews(_conn):
+    print("++++++++++++++++++++++++++++++++++")
+    print("Populate Platforms")
+
+    try: 
+        review = [ #Revews(gameTitle, rating, resource, comment)
+                        # (varchar(30), decimal, varchar, varchar)
+            ("The Last of Us Remastered", 10, "IGN", "With The Last of Us: Remastered, PlayStation 3's best game just became PlayStation 4's, too."),
+            ("The Last of Us Remastered", 9, "Metro GameCentral", "Still a stunning achievement in both storytelling and third person adventure, and although this is the definitive version the differences are still minor."),
+            ("The Last of Us Remastered", 10, "Game Informer", "The punishing world dares you to press on, and the story is an emotional punch to the gut. In short, this is one of the best video games ever made")
+            
+        ]
+        sql = "INSERT INTO Reviews VALUES(?, ?, ?, ?)"
+        _conn.executemany(sql, review)
+
+        _conn.commit()
+        print("success")
+
+    except Error as e:
+        _conn.rollback()
+        print(e)
+
+    print("++++++++++++++++++++++++++++++++++")
 
     
 def main():
@@ -292,6 +315,7 @@ def main():
         populateTable_Games(conn)
         populateTable_DevPub(conn)
         populate_Platforms(conn)
+        populate_Reviews(conn)
         #dropTables(conn)
 
     closeConnection(conn, database)
