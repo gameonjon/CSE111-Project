@@ -346,13 +346,14 @@ def main():
     database = r"data.sqlite"
     conn = openConnection(database)
     with conn:
+        dropTables(conn)
         createTables(conn)
         populateTable_Games(conn)
         populateTable_DevPub(conn)
         populate_Platforms(conn)
         populate_Reviews(conn)
         populate_gamePlay(conn)
-        #dropTables(conn)
+        
 
     closeConnection(conn, database)
 
