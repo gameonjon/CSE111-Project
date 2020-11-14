@@ -146,4 +146,19 @@ DELETE FROM Reviews
 -- Q16: Update Gamplay spider-man to platfomr youtube
 UPDATE GamePlay
     SET gp_platform = "Youtube"
-    WHERE gp_gameTitle = "Spider-Man"
+    WHERE gp_gameTitle = "Spider-Man";
+
+-- Q17: Select the reviews from games whos publisher is "Sony Interactive Entertainment"
+SELECT *
+    FROM Reviews, Games, Publisher
+    WHERE p_name = "Sony Interactive Entertainment" AND
+        g_pubkey = p_pubkey
+    GROUP BY r_resource;
+
+-- Q18: select the develper with publisher "Sony Interactive Entertainment"
+SELECT d_name
+    FROM Games, Developer, Publisher
+    WHERE p_name = "Sony Interactive Entertainment" AND
+        g_pubkey = p_pubkey AND
+        d_devkey = g_devkey
+    GROUP BY d_name;
