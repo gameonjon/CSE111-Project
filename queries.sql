@@ -124,7 +124,7 @@ WHERE
 
 -- Q11: Insert into gameplay
 INSERT INTO GamePlay (gp_gameTitle, gp_url, gp_platform)
-    VALUES ("Spider-Man", "https://www.youtube.com/results?search_query=spider+man+2018", "Youtube");
+    VALUES ("Spider-Man", "https://www.youtube.com/results?search_query=spider+man+2018", "Twitch");
 
 --Q12: Insert into Games
 INSERT INTO Games (g_title, g_year, g_genre, g_exkey, g_pubkey, g_devkey)
@@ -136,7 +136,14 @@ INSERT INTO Reviews (r_gameTitle, r_rating, r_resource, r_comment)
 
 --Q14: Update Reviews
 UPDATE Reviews
-SET r_rating = 8, r_resource = "GameSpot"
-WHERE r_gameTitle = "The Last of Us Part II";
+    SET r_rating = 8, r_resource = "GameSpot"
+    WHERE r_gameTitle = "The Last of Us Part II";
 
+--Q15: Delete Review by Metro GameCentral
+DELETE FROM Reviews
+    WHERE r_resource = "Metro GameCentral";
 
+-- Q16: Update Gamplay spider-man to platfomr youtube
+UPDATE GamePlay
+    SET gp_platform = "Youtube"
+    WHERE gp_gameTitle = "Spider-Man"
