@@ -126,20 +126,20 @@ WHERE
 INSERT INTO GamePlay (gp_gameTitle, gp_url, gp_platform)
     VALUES ("Spider-Man", "https://www.youtube.com/results?search_query=spider+man+2018", "Twitch");
 
---Q12: Insert into Games
+-- Q12: Insert into Games
 INSERT INTO Games (g_title, g_year, g_genre, g_exkey, g_pubkey, g_devkey)
     VALUES ("The Last of Us Part II", "2020-06-19", "survival-horror", 1, 10005, 20025);
 
---Q13: Insert into Reviews
+-- Q13: Insert into Reviews
 INSERT INTO Reviews (r_gameTitle, r_rating, r_resource, r_comment)
     VALUES ("The Last of Us Part II", 10, "Unkown", "The Last of Us Part II is messy, bleak, and brutal.");
 
---Q14: Update Reviews
+-- Q14: Update Reviews
 UPDATE Reviews
     SET r_rating = 8, r_resource = "GameSpot"
     WHERE r_gameTitle = "The Last of Us Part II";
 
---Q15: Delete Review by Metro GameCentral
+-- Q15: Delete Review by Metro GameCentral
 DELETE FROM Reviews
     WHERE r_resource = "Metro GameCentral";
 
@@ -162,3 +162,14 @@ SELECT d_name
         g_pubkey = p_pubkey AND
         d_devkey = g_devkey
     GROUP BY d_name;
+
+-- Q19: get game title, system, and publisher for exclusively made games
+SELECT g_title, pf_system, p_name
+    FROM Platform, Games, Publisher
+    WHERE pf_exclusive = 1 AND
+        g_exkey = pf_exkey AND
+        g_pubkey = p_pubkey;
+
+-- Q20: delete ratings 8.9 and lower
+DELETE FROM Reviews
+    WHERE r_rating < 9;
