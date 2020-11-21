@@ -43,9 +43,17 @@ def createTables(_conn):
                     g_year DATE NOT NULL,
                     g_genre varchar(15) NOT NULL,
                     g_exkey decimal(5,0) NOT NULL,
-                    g_pubkey decimal(12,0) NOT NULL,
-                    g_devkey decimal(12,0) NOT NULL
+                    g_gameID decimal(12,0) NOT NULL                    
                     )"""
+                    # g_pubkey decimal(12,0) NOT NULL,
+                    # g_devkey decimal(12,0) NOT NULL
+        _conn.execute(sql)
+
+        sql = """CREATE TABLE Contracts (
+                    c_gameID decimal(12,0) NOT NULL,
+                    c_pubkey decimal(12,0),
+                    c_devkey decimal(12,0)
+                )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Platform (
@@ -56,7 +64,7 @@ def createTables(_conn):
         _conn.execute(sql)
 
         sql = """CREATE TABLE Reviews (
-                    r_gameTitle varchar(30) NOT NULL,
+                    r_gameID decimal(12,0) NOT NULL,
                     r_rating decimal(2,1) NOT NULL,
                     r_resource varchar(25) NOT NULL,
                     r_comment VARCHAR(50) NOT NULL)"""
@@ -64,18 +72,18 @@ def createTables(_conn):
 
         sql = """CREATE TABLE Publisher (
                     p_name varchar(30) NOT NULL,
-                    p_pubkey decimal(12,0)
+                    p_pubkey decimal(12,0) NOT NULL
                 )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Developer (
                     d_name varchar(30) NOT NULL,
-                    d_devkey decimal(12,0)
+                    d_devkey decimal(12,0) NOT NULL
                 )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE GamePlay (
-                    gp_gameTitle varchar(30) NOT NULL,
+                    gp_gameID decimal(12,0) NOT NULL,
                     gp_url varchar(15) NOT NULL,
                     gp_platform varchar(30) NOT NULL
                 )"""
@@ -97,6 +105,9 @@ def dropTables(_conn):
 
     try: 
         sql = "DROP TABLE Games"
+        _conn.execute(sql)
+
+        sql = "DROP TABLE Contracts"
         _conn.execute(sql)
 
         sql = "DROP TABLE Platform"
@@ -130,49 +141,49 @@ def populateTable_Games(_conn):
 
     try:
 
-        games = [               #(title, year, genre, exkey, pubkey, devkey)
+        games = [               #(title, year, genre, exkey, gameID )   #pubkey, devkey)
 
             #Platform:
             # ps4, xbox1, xbox360, MSW, Mac OS, Linux
-            ("Rise of the Tomb Raider", '2016-02-09', "action-adventure", 11, 10001, 20001),
+            ("Rise of the Tomb Raider", '2016-02-09', "action-adventure", 11, 1),# 10001, 20001),
             #Platform: ps4, xbox1, MSW
-            ("Star Wars: Jedi Fallen Order",'2019-11-15', "action-adventure", 11, 10004, 20005),
+            ("Star Wars: Jedi Fallen Order",'2019-11-15', "action-adventure", 11, 2),# 10004, 20005),
             #Platform: ps4, xbox1, MSW
-            ("Star Wars: BattleFront 2", '2017-11-17', "shooter", 11, 10004, 20006),
+            ("Star Wars: BattleFront 2", '2017-11-17', "shooter", 11, 3), #10004, 20006),
             #Platform: ps4, MSW
-            ("Death Stranding", '2019-11-08', "action", 5, 10006, 20009),
+            ("Death Stranding", '2019-11-08', "action", 5, 4), # 10006, 20009),
             #Platform: ps4, nintendo switch, xbox 1, msw
-            ("Overwatch", "2016-05-24", "shooter", 13, 10007, 20010),
+            ("Overwatch", "2016-05-24", "shooter", 13, 5), #10007, 20010),
             #Platform: ps4, xbox1, msw, nintendo switch
-            ("Bioshock: The Collection", '2016-09-13', "shooter", 13, 10008, 20012),
+            ("Bioshock: The Collection", '2016-09-13', "shooter", 13, 6), #10008, 20012),
             #Platform: ps4, xbox1, msw, linux, classic Mac os
-            ("Dying Light", '2015-01-26', "action", 11, 10010, 20017), 
+            ("Dying Light", '2015-01-26', "action", 11, 7), # 10010, 20017), 
             #Platform: ps4, xbox1, ps3, xbox360, msw
-            ("Battlefield 4", '2013-10-29', "shooter", 11, 10004, 20006),
+            ("Battlefield 4", '2013-10-29', "shooter", 11, 8), # 10004, 20006),
             #Platform: ps4, xbox1, msw
-            ("Call of Duty: Modern Warfare Remastered", '2016-11-04', "shooter", 11, 10012, 20018),
+            ("Call of Duty: Modern Warfare Remastered", '2016-11-04', "shooter", 11, 9), #10012, 20018),
             #Platform: ps4, xbox1, msw
-            ("Tom Clancy's Ghost Recon", '2017-03-07', "tactical shooter", 11, 10013, 20021),
+            ("Tom Clancy's Ghost Recon", '2017-03-07', "tactical shooter", 11, 10), #10013, 20021),
             #Platform: ps4 
-            ("Killzone Shadow Fall", '2013-11-15', "shooter", 1, 10005, 20024),
+            ("Killzone Shadow Fall", '2013-11-15', "shooter", 1, 11), # 10005, 20024),
             #Platform: ps4
-            ("The Last of Us Remastered", '2014-07-29', "survival-horror", 1, 10005, 20025),
+            ("The Last of Us Remastered", '2014-07-29', "survival-horror", 1, 12), #10005, 20025),
             #Platform: ps4, msw, xbox1
-            ("Star Wars: Battlefront", '2017-11-17', "shooter", 11, 10004, 20006),
+            ("Star Wars: Battlefront", '2017-11-17', "shooter", 11, 13), #10004, 20006),
             #Platform: ps4, msw
-            ("Horizor Zero Dawn", '2017-02-28', "action", 5, 10005, 20024),
+            ("Horizor Zero Dawn", '2017-02-28', "action", 5, 14), #10005, 20024),
             #Platform: ps4, xbox1, msw
-            ("Battlefield 1", '2016-10-21', "shooter", 11, 10004, 20006),
+            ("Battlefield 1", '2016-10-21', "shooter", 11, 15), #10004, 20006),
             #Platform: ps4, xbox1, msw
-            ("Need for Speed", '2015-11-03', "racing", 11, 10004, 20026),
+            ("Need for Speed", '2015-11-03', "racing", 11, 16), # 10004, 20026),
             #Platform: ps4
-            ("Spider-Man", '2018-09-07', "action-adventure", 1, 10005, 20027),
+            ("Spider-Man", '2018-09-07', "action-adventure", 1, 17), #10005, 20027),
             #Platform: ps4, xbox1, msw
-            ("Call of Duty: Modern Warfare", '2019-08-23', "shooter", 11, 10012, 20018)
+            ("Call of Duty: Modern Warfare", '2019-08-23', "shooter", 11, 18), #10012, 20018)
 
 
         ]
-        sql = "INSERT INTO Games VALUES(?, ?, ?, ?, ?, ?)"
+        sql = "INSERT INTO Games VALUES(?, ?, ?, ?, ?)"
         _conn.executemany(sql, games)
 
         _conn.commit()
@@ -183,6 +194,31 @@ def populateTable_Games(_conn):
         print(e)
 
     print("++++++++++++++++++++++++++++++++++")
+
+def populate_Contracts(_conn):
+    print("++++++++++++++++++++++++++++++++++")
+    print("Populate Contracts between Games, Publsihers and developers")
+
+    try:
+        contract = [ # contracts ( gameID, pubkey, devkey)
+            (1, 10001, 20001),
+            (1,10002, 20002),
+            (1, 10003, 20003),
+            (1, "NULL", 20004)
+        ]
+        sql = "INSERT INTO Contracts VALUES(?, ?, ?)"
+        _conn.executemany(sql, contract)
+
+        _conn.commit()
+        print("success")
+
+    except Error as e:
+        _conn.rollback()
+        print(e)
+
+print("++++++++++++++++++++++++++++++++++")
+
+
 
 def populateTable_DevPub(_conn):
     print("++++++++++++++++++++++++++++++++++")
@@ -349,6 +385,7 @@ def main():
         dropTables(conn)
         createTables(conn)
         populateTable_Games(conn)
+        populate_Contracts(conn)
         populateTable_DevPub(conn)
         populate_Platforms(conn)
         populate_Reviews(conn)
