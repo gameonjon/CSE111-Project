@@ -147,7 +147,7 @@ def populateTable_Games(_conn):
             # ps4, xbox1, xbox360, MSW, Mac OS, Linux
             ("Rise of the Tomb Raider", '2016-02-09', "action-adventure", 11, 1),# 10001, 20001),
             #Platform: ps4, xbox1, MSW
-            ("Star Wars: Jedi Fallen Order",'2019-11-15', "action-adventure", 11, 2),# 10004, 20005),
+            ("Star Wars Jedi: Fallen Order",'2019-11-15', "action-adventure", 11, 2),# 10004, 20005),
             #Platform: ps4, xbox1, MSW
             ("Star Wars: BattleFront 2", '2017-11-17', "shooter", 11, 3), #10004, 20006),
             #Platform: ps4, MSW
@@ -169,7 +169,7 @@ def populateTable_Games(_conn):
             #Platform: ps4
             ("The Last of Us Remastered", '2014-07-29', "survival-horror", 1, 12), #10005, 20025),
             #Platform: ps4, msw, xbox1
-            ("Star Wars: Battlefront", '2017-11-17', "shooter", 11, 13), #10004, 20006),
+            ("Star Wars: Battlefront", '2015-11-16', "shooter", 11, 13), #10004, 20006),
             #Platform: ps4, msw
             ("Horizor Zero Dawn", '2017-02-28', "action", 5, 14), #10005, 20024),
             #Platform: ps4, xbox1, msw
@@ -201,10 +201,82 @@ def populate_Contracts(_conn):
 
     try:
         contract = [ # contracts ( gameID, pubkey, devkey)
+            #rise of the tomb raider
             (1, 10001, 20001),
             (1,10002, 20002),
             (1, 10003, 20003),
-            (1, "NULL", 20004)
+            (1, "NULL", 20004),
+            #Star  wars jedi fallen order
+            (2, 10004, 20005),
+            #star wars : battlefront 2
+            (3, 10004, 20006),
+            (3, '\0', 20007),
+            (3, '\0', 20008),
+            #death stranding
+            (4, 10005, 20009),
+            (4, 10006, '\0'),
+            #overwatch
+            (5, 10007, 20010),
+            (5, '\0', 20011),
+            #bioshock the collection
+            (6, 10008, 20012),
+            (6, '\0', 20013),
+            (6, '\0', 20014),
+            (6, '\0', 20015),
+            (6, '\0', 20016),
+            #dying light
+            (7, 10010, 20017),
+            (7, 10011, '\0'),
+            #battlefield 4
+            (8, 10004, 20006),
+            (8, '\0', 20029),
+            #COD mw remastered
+            (9, 10012, 20018),
+            (9, '\0', 20019),
+            (9, '\0', 20020),
+            #tom clancy ghost recon
+            (10, 10013, 20021),
+            (10, 10014, 20022),
+            (10, 10015, 20023),
+            (10, 10016, 20030),
+            (10, '\0', 20031),
+            (10, '\0', 20032),
+            (10, '\0', 20033),
+            (10, '\0', 20034),
+            (10, '\0', 20035),
+            (10, '\0', 20036),
+            (10, '\0', 20037),
+            (10, '\0', 20038),
+            (10, '\0', 20039),
+            (10, '\0', 20040),
+            (10, '\0', 20041),
+            (10, '\0', 20042),
+            (10, '\0', 20043),
+            (10, '\0', 20044),
+            (10, '\0', 20045),
+            (10, '\0', 20046),
+            (10, '\0', 20047),
+            (10, '\0', 20048),
+            #killzone shadow fall
+            (11, 10005, 20024),
+            #TLOU Remastered
+            (12, 10005, 20025),
+            #star wars battlefront
+            (13, 10004, 20006),
+            (13, '\0', 20008),
+            #horizon zero dawn
+            (14, 10005, 20024),
+            #Battlefield 1
+            (15, 10004, 20006),
+            #need for speed
+            (16, 10004, 20049),
+            #spider man
+            (17, 10005, 20027),
+            (17, 10017, '\0'),
+            #cod MW 2019
+            (18, 10012, 20018),
+            (18, '\0', 20028)
+                        
         ]
         sql = "INSERT INTO Contracts VALUES(?, ?, ?)"
         _conn.executemany(sql, contract)
@@ -241,7 +313,8 @@ def populateTable_DevPub(_conn):
             ("Ubisoft", 10013),
             ("Gameloft", 10014),
             ("Aspyr", 10015),
-            ("Frontier Groove, Inc.", 10016)
+            ("Frontier Groove, Inc.", 10016),
+            ("Sony Interactive Entertainment Europe", 10017)
 
         ]
         sql = "INSERT INTO Publisher Values(?, ?)"
@@ -275,7 +348,29 @@ def populateTable_DevPub(_conn):
             ("Naughty Dog", 20025), 
             ("Electronic Arts", 20026),
             ("Insomniac Games", 20027),
-            ("Sledgehammer Games", 20028)
+            ("Sledgehammer Games", 20028),
+            ("DICE Los Angeles", 20029),
+            ("Ubisoft Milan", 20030),
+            ("Ubisoft Romania", 20031),
+            ("Gameloft", 20032),
+            ("Ubisoft Reflections", 20033),
+            ("Ubisoft Shanghai", 20034),
+            ("Ubisoft Montpellier", 20035),
+            ("Ubisoft Annecy", 20036),
+            ("Grin", 20037),
+            ("Ubisoft Singapore", 20038),
+            ("Ubisoft Ukraine", 20039),
+            ("Virtuos", 20040),
+            ("Next Level Games", 20041),
+            ("High Voltage Software", 20042),
+            ("Ubisoft Sofia", 20043),
+            ("Loot Drop", 20044),
+            ("Darkworks", 20045),
+            ("Ubisoft Belgrade", 20046),
+            ("Ubisoft Barcelona", 20047),
+            ("i5works", 20048),
+            ("EA Gothenburg", 20049)
+
 
 
         ]
