@@ -180,8 +180,6 @@ def populateTable_Games(_conn):
             ("Spider-Man", '2018-09-07', "action-adventure", 1, 17), #10005, 20027),
             #Platform: ps4, xbox1, msw
             ("Call of Duty: Modern Warfare", '2019-08-23', "shooter", 11, 18), #10012, 20018)
-
-
         ]
         sql = "INSERT INTO Games VALUES(?, ?, ?, ?, ?)"
         _conn.executemany(sql, games)
@@ -276,7 +274,6 @@ def populate_Contracts(_conn):
             #cod MW 2019
             (18, 10012, 20018),
             (18, '\0', 20028)
-                        
         ]
         sql = "INSERT INTO Contracts VALUES(?, ?, ?)"
         _conn.executemany(sql, contract)
@@ -370,9 +367,6 @@ def populateTable_DevPub(_conn):
             ("Ubisoft Barcelona", 20047),
             ("i5works", 20048),
             ("EA Gothenburg", 20049)
-
-
-
         ]
         sql = "INSERT INTO Developer Values(?, ?)"
         _conn.executemany(sql, dev)
@@ -428,12 +422,11 @@ def populate_Reviews(_conn):
     print("Populate Platforms")
 
     try: 
-        review = [ #Revews(gameTitle, rating, resource, comment)
+        review = [ #Revews(gameID, rating, resource, comment)
                         # (varchar(30), decimal, varchar, varchar)
-            ("The Last of Us Remastered", 10, "IGN", "With The Last of Us: Remastered, PlayStation 3's best game just became PlayStation 4's, too."),
-            ("The Last of Us Remastered", 9, "Metro GameCentral", "Still a stunning achievement in both storytelling and third person adventure, and although this is the definitive version the differences are still minor."),
-            ("The Last of Us Remastered", 10, "Game Informer", "The punishing world dares you to press on, and the story is an emotional punch to the gut. In short, this is one of the best video games ever made")
-            
+            (12, 10, "IGN", "With The Last of Us: Remastered, PlayStation 3's best game just became PlayStation 4's, too."),
+            (12, 9, "Metro GameCentral", "Still a stunning achievement in both storytelling and third person adventure, and although this is the definitive version the differences are still minor."),
+            (12, 10, "Game Informer", "The punishing world dares you to press on, and the story is an emotional punch to the gut. In short, this is one of the best video games ever made")
         ]
         sql = "INSERT INTO Reviews VALUES(?, ?, ?, ?)"
         _conn.executemany(sql, review)
@@ -451,14 +444,14 @@ def populate_gamePlay(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Populate GamePlay")
 
-    try: # GamePlay(gameTitle, website, platform)
+    try: # GamePlay(gameTitle,      (gameID, website, platform)
         gamePlay = [
-            ("Call of Duty: Modern Warfare", "https://www.twitch.tv/directory/game/Call%20Of%20Duty%3A%20Modern%20Warfare", "Twitch"),
-            ("Call of Duty: Modern Warfare", "https://www.youtube.com/results?search_query=call+of+duty+modern+warfare", "Youtube"),
-            ("Overwatch", "https://www.twitch.tv/directory/game/Overwatch", "Twitch"),
-            ("Overwatch", "https://www.youtube.com/results?search_query=overwatch", "Youtube"),
-            ("The Last of Us Remastered", "https://www.twitch.tv/directory/game/The%20Last%20of%20Us", "Twitch"),
-            ("The Last of Us Remastered", "https://www.youtube.com/results?search_query=the+last+of+us+remastered", "Youtube")
+            (18, "https://www.twitch.tv/directory/game/Call%20Of%20Duty%3A%20Modern%20Warfare", "Twitch"),
+            (18, "https://www.youtube.com/results?search_query=call+of+duty+modern+warfare", "Youtube"),
+            (5, "https://www.twitch.tv/directory/game/Overwatch", "Twitch"),
+            (5, "https://www.youtube.com/results?search_query=overwatch", "Youtube"),
+            (12, "https://www.twitch.tv/directory/game/The%20Last%20of%20Us", "Twitch"),
+            (12, "https://www.youtube.com/results?search_query=the+last+of+us+remastered", "Youtube")
         ]
         sql = "INSERT INTO GamePlay Values(?, ?, ?)"
         _conn.executemany(sql, gamePlay)
