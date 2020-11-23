@@ -67,7 +67,7 @@ def createTables(_conn):
                     r_gameID decimal(12,0) NOT NULL,
                     r_rating decimal(2,1) NOT NULL,
                     r_resource varchar(25) NOT NULL,
-                    r_comment VARCHAR(50) NOT NULL)"""
+                    r_comment VARCHAR(50))"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Publisher (
@@ -426,7 +426,25 @@ def populate_Reviews(_conn):
                         # (varchar(30), decimal, varchar, varchar)
             (12, 10, "IGN", "With The Last of Us: Remastered, PlayStation 3's best game just became PlayStation 4's, too."),
             (12, 9, "Metro GameCentral", "Still a stunning achievement in both storytelling and third person adventure, and although this is the definitive version the differences are still minor."),
-            (12, 10, "Game Informer", "The punishing world dares you to press on, and the story is an emotional punch to the gut. In short, this is one of the best video games ever made")
+            (12, 10, "Game Informer", "The punishing world dares you to press on, and the story is an emotional punch to the gut. In short, this is one of the best video games ever made"),
+            (18, 8, "IGN", "Call of Duty: Modern Warfare's varied gameplay modes and excellent gunplay suggest the series is headed in a promising direction."),
+            (18, 8, "GamesRadar+", "Modern Warfare is fast and frenetic, setting a new benchmark for fidelity and high-pressure FPS action."),
+            (17, 8.7, "IGN", "I wanted Marvel's Spider-Man on PS4 to make me feel like Spider-Man: To sail between the highrises of New York City, to nimbly web up hordes of enemies, and tussle with familiar, animal-themed villains. Insomniac Games' first foray into the world of Marvel handily delivers on all of that. But what I didn't expect from Spider-Man was to come away feeling just as fulfilled to have inhabited the life of Peter Parker. Aside from a few odd pacing issues, which momentarily took me out of the experience of being a superhero, and a world of optional missions that don't always quite live up to the heft of the main story, Insomniac has delivered a Spider-Man story that both surprised and delighted me, coupled with gameplay that made me feel like Spider-Man nearly every step of the way. The Wall Crawler's open world doesn't consistently deliver the thrilling moments of its main campaign, but the foundation laid here is undoubtedly a spectacular one."),
+            (4, 8.5, "PC Gamer", "Slow, weird, and indulgent, but a true original, and a journey that will linger in your mind long after it's over."),
+            (4, 7, "GamesRadar+", "Kojima's mysterious would be epic has its moments but can't carry the weight of expectation."),
+            (5, 8.8, "PC Gamer", "It's not flawless, but Overwatch is still one of the best new multiplayer shooters to arrive in years."),
+            (5, 10, "IGN", "Overwatch is a masterpiece. A dizzying amalgam of unique characters, stunning style, and compellingly dynamic action."),
+            (6, 8, "Game Revolution", "If you are a PS4 or Xbox One owner, Bioshock: The Collection should be in your, um, collection, whether in the 2-disc physical format or digital download. Unfortunately, I’ve read reports that the PC version has issues. (Like bad ones.) As such PC players should wait for the (fingers crossed) eventual patches."),
+            (6, 9, "Hobby Consolas", "Three great adventures masterfully ported to Nintendo Switch. They only missing feature is they're not running at 60 fps, but the rest is on spot, showing an adaptation on par with the PS4 and Xbox One remasters. Also, keep in mind that if you buy it, physical or digital, you will need a big microSD, because the download is quite big..."),
+            (6, 8, "Metro GameCentral", "Time has worn some holes in each games’ reputation, but these are still three of the most ambitious and daring action games of modern times."),
+            (8, 8.4, "PC Gamer", "Although familiar to BF3, but BF4 remains a visually and sonically satisfying, reliably intense FPS. Improved by Commander Mode and a terrific and diverse map set."),
+            (8, 9, "GamesRadar+", "Multiplayer shooters don't get better than Battlefield 4. Incredible destruction, smart map design, and solid tech combine to produce a true showcase for PS4 and PC. While solo play still lags behind, it's a big step up from BF3."),
+            (2, 9, "Easy Allies", '\0'),
+            (2, 9, "IGN", "Star Wars Jedi: Fallen Order makes up for a lot of lost time with a fantastic single-player action-adventure that marks the return of the playable Jedi."),
+            (2, 7.3, "PC Gamer", "Technical issues marr an otherwise slick adventure. A must for Star Wars fans."),
+            (14, 9, "GamesRadar+", "An open-world that tailors to each and every interest, Horizon: Zero Dawn keeps combat fresh, with an intriguing protagonist to match."),
+            (14, 8.6, "PC Gamer", "A classy sandbox that stands out from the pack thanks to its brilliant battles against an array of fantastic beasts."),
+            (14, 9.3, "IGN", "Horizon Zero Dawn presents us with a beautiful world full of unforgettable challenges.")
         ]
         sql = "INSERT INTO Reviews VALUES(?, ?, ?, ?)"
         _conn.executemany(sql, review)
@@ -451,7 +469,12 @@ def populate_gamePlay(_conn):
             (5, "https://www.twitch.tv/directory/game/Overwatch", "Twitch"),
             (5, "https://www.youtube.com/results?search_query=overwatch", "Youtube"),
             (12, "https://www.twitch.tv/directory/game/The%20Last%20of%20Us", "Twitch"),
-            (12, "https://www.youtube.com/results?search_query=the+last+of+us+remastered", "Youtube")
+            (12, "https://www.youtube.com/results?search_query=the+last+of+us+remastered", "Youtube"),
+            (6, "https://www.twitch.tv/directory/game/BioShock%3A%20The%20Collection", "Twitch"),
+            (6, "https://www.youtube.com/results?search_query=bioshock+the+collection", "Youtube"),
+            (2, "https://www.youtube.com/results?search_query=star+wars+jedi+fallen+order", "Youtube"),
+            (2, "https://www.twitch.tv/directory/game/Horizon%20Zero%20Dawn", "Twitch"),
+            (8, "https://www.youtube.com/results?search_query=battlefield+4", "Youtube")
         ]
         sql = "INSERT INTO GamePlay Values(?, ?, ?)"
         _conn.executemany(sql, gamePlay)
