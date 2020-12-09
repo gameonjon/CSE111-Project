@@ -57,6 +57,11 @@ class VideoGames {
             "SELECT  * FROM Developer", [])
     }
 
+    allGamePlay() {
+        return this.all(
+            "SELECT DISTINCT gp_gameID FROM GamePlay ORDER BY gp_gameID ASC", [])
+    }
+
 }
 
 module.exports = VideoGames

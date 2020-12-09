@@ -122,6 +122,21 @@ app.get("/api/developer", (req, res, next) => {
         })
 });
 
+// GamePlay table
+app.get("/api/gameplay", (req, res, next) => {
+    project.allGamePlay()
+        .then((makers) => {
+            res.json({
+                "message": "success",
+                "data": makers
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {
