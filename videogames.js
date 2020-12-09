@@ -32,6 +32,11 @@ class VideoGames {
             "SELECT * FROM Games", [])
     }
 
+    allPlatforms() {
+        return this.all(
+            "SELECT * FROM Platform", [])
+    }
+
 }
 
 module.exports = VideoGames

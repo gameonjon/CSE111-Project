@@ -28,7 +28,11 @@ app.get("/", (req, res, next) => {
     res.json({ "message": "Ok" })
 });
 
-// Insert here other API endpoints
+
+//                  ONLY TOUCH STUFF BELOW THIS POINT!!!
+// ======================================================================
+
+// Games table
 app.get("/api/games", (req, res, next) => {
     project.allGames()
         .then((makers) => {
@@ -43,36 +47,24 @@ app.get("/api/games", (req, res, next) => {
         })
 });
 
-// app.get("/api/maker-prod/:maker-:prod", (req, res, next) => {
-//     if (req.params.prod == "All") {
-//         computers.allProductsByMaker(req.params.maker)
-//             .then((prods) => {
-//                 res.json({
-//                     "message": `Products by ${req.params.maker}`,
-//                     "data": prods
-//                 })
-//             })
-//             .catch((err) => {
-//                 res.status(400).json({ "error": err.message });
-//                 return;
-//             })
-//     }
-//     else {
-//         computers.productByMaker(req.params.prod, req.params.maker)
-//             .then((prods) => {
-//                 res.json({
-//                     "message": `${req.params.prod} by ${req.params.maker}`,
-//                     "data": prods
-//                 })
-//             })
-//             .catch((err) => {
-//                 res.status(400).json({ "error": err.message });
-//                 return;
-//             })
-//     }
-// });
+// Platforms table
+app.get("/api/platforms", (req, res, next) => {
+    project.allPlatforms()
+        .then((makers) => {
+            res.json({
+                "message": "success",
+                "data": makers
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {
     res.status(404);
 });
+// ======================================================================
