@@ -92,6 +92,21 @@ app.get("/api/review", (req, res, next) => {
         })
 });
 
+// Contracts table
+app.get("/api/contract", (req, res, next) => {
+    project.allContracts()
+        .then((makers) => {
+            res.json({
+                "message": "success",
+                "data": makers
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {
