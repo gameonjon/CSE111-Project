@@ -107,6 +107,21 @@ app.get("/api/contract", (req, res, next) => {
         })
 });
 
+// Developer table
+app.get("/api/developer", (req, res, next) => {
+    project.allDevelopers()
+        .then((makers) => {
+            res.json({
+                "message": "success",
+                "data": makers
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {

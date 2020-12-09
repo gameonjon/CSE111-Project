@@ -106,6 +106,24 @@
             )
       }
 
+      function dropDownDeveloperName() {
+         var DevName = document.getElementById('developer');
+
+         const API_URL = 'http://127.0.0.1:8092/api/developer';
+         axios.get(`${API_URL}`)
+            .then(response => {
+               for (x=0; x<response.data.data.length; x++) {
+                  option = document.createElement('option');
+                  option.value = response.data.data[x].d_name;
+                  option.text = response.data.data[x].d_name;
+                  DevName.appendChild(option);
+               }
+            })
+            .catch(error =>
+               console.error('dropDownDeveloperName', error)
+            )
+      }
+
 
       function runQuery() {
          var selMaker = document.getElementById('title').value;
@@ -157,7 +175,7 @@
 </head>
     
 <body class="homescreen m-0 flex flex-col bg-gray-800 h-screen text-gray-100" 
-      onload="dropDownGamesTitle(); dropDownPlatformSystems(); dropDownPublisherName(); dropDownReviewsGameID(); dropDownContractsGameID();">
+      onload="dropDownGamesTitle(); dropDownPlatformSystems(); dropDownPublisherName(); dropDownReviewsGameID(); dropDownContractsGameID(); dropDownDeveloperName()">
 
    <!-- Top Nav Bar with class title and authors. -->
    <nav class="flex justify-between">
@@ -194,6 +212,11 @@
    
       <label>Contracts:</label>
       <select name="contract" id="contract">
+         <option value=''> Select an Option </option>
+      </select>
+
+      <label>Developer:</label>
+      <select name="developer" id="developer">
          <option value=''> Select an Option </option>
       </select>
    

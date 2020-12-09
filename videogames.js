@@ -52,6 +52,11 @@ class VideoGames {
             "SELECT DISTINCT c_gameID FROM Contracts ORDER BY c_gameID ASC", [])
     }
 
+    allDevelopers() {
+        return this.all(
+            "SELECT  * FROM Developer", [])
+    }
+
 }
 
 module.exports = VideoGames
