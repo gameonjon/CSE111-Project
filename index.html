@@ -1,47 +1,54 @@
 <!DOCTYPE html>
-<html> 
-
+<html>
 <head>
     <meta charset="utf-8">
-    <title>Computers Database</title>
+    <title>Database Systems</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
 
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous"/>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
    <script>
-      function populateMakers() {
-         var selMaker = document.getElementById('maker');
-         var selProd = document.getElementById('product');
-         selProd.value = "All";
+      function populateTitle() {
+         var selMaker = document.getElementById('title');
+         // var selProd = document.getElementById('product');
+         // selProd.value = "All";
 
-         const API_URL = 'http://127.0.0.1:8092/api/makers';
+         const API_URL = 'http://127.0.0.1:8092/api/games';
          axios.get(`${API_URL}`)
             .then(response => {
-               //console.log(response.data.data);
+               console.log(response.data.data);
                
                for (x=0; x<response.data.data.length; x++) {
-                  //console.log(response.data.data[x].maker);
+                  console.log(response.data.data[x].maker);
 
                   option = document.createElement('option');
-                  option.value = response.data.data[x].maker;
-                  option.text = response.data.data[x].maker;
+                  option.value = response.data.data[x].g_title;
+                  option.text = response.data.data[x].g_title;
                   selMaker.appendChild(option);
                }
             })
             .catch(error =>
-               console.error('populateMakers', error)
+               console.error('populateTitle', error)
             )
       }
 
       function runQuery() {
-         var selMaker = document.getElementById('maker').value;
-         var selProd = document.getElementById('product').value;
+         var selMaker = document.getElementById('title').value;
+         // var selProd = document.getElementById('product').value;
          //console.log(selMaker);
          //console.log(selProd);
 
          var result = document.getElementById('result');
          result.innerHTML = "";
 
-         const API_URL = `http://127.0.0.1:8092/api/maker-prod/${selMaker}-${selProd}`;
+         const API_URL = `http://127.0.0.1:8092/api/games`;
          axios.get(`${API_URL}`)
             .then(response => {
                //console.log(response.data.data);
@@ -81,25 +88,32 @@
    </script>
 </head>
     
-<body onload="populateMakers()">
-   <label>Maker:</label>
-   <select name="maker" id="maker">
-      <option value=''>------- Select --------</option>
-   </select>
+<body class="homescreen m-0 flex flex-col bg-gray-800 h-screen text-gray-100" onload="populateTitle()">
+   <!-- Top Nav Bar with class title and authors. -->
+   <nav class="flex justify-between">
+      <p class="text-xl py-8 px-8 uppercase md:px-48">
+         Database <span class="text-teal-400 font-bold">Systems</span>
+      </p>
+      <ul class="flex justify-evenly w-full text-xl py-8 px-0 xl:px-48 xl:w-1/2">
+         <li>
+            Authors: Ediel & Jonathan
+         </li>
+      </ul>
+   </nav>
 
-   <label>Product type:</label>
-   <select name="product" id="product">
-      <option value='All'>All</option>
-      <option value='PC'>PC</option>
-      <option value='Laptop'>Laptop</option>
-      <option value='Printer'>Printer</option>
-   </select>
+   <div style="margin: 30px auto;">
+      <label>Title:</label>
+      <select name="title" id="title">
+         <option value=''>------- Select --------</option>
+      </select>
+   
+      <!-- Execute and display the results. -->
+      <button name="runQ" onclick="runQuery()">Find</button>
+      <br><br><br>
+      <table name="result" id="result"></table>
+   </div>
 
-   <button name="runQ" onclick="runQuery()">Find</button>
+  <script src="./assets/js/star.js"></script>
 
-   <br><br><br>
-
-   <table name="result" id="result"></table>
 </body>
-
 </html>
