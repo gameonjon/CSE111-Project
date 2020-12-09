@@ -62,6 +62,21 @@ app.get("/api/platforms", (req, res, next) => {
         })
 });
 
+// Publishers table
+app.get("/api/publisher", (req, res, next) => {
+    project.allPublishers()
+        .then((makers) => {
+            res.json({
+                "message": "success",
+                "data": makers
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {

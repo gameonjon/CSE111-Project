@@ -37,6 +37,11 @@ class VideoGames {
             "SELECT * FROM Platform", [])
     }
 
+    allPublishers() {
+        return this.all(
+            "SELECT * FROM Publisher", [])
+    }
+
 }
 
 module.exports = VideoGames
