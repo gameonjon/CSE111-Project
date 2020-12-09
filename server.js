@@ -77,6 +77,21 @@ app.get("/api/publisher", (req, res, next) => {
         })
 });
 
+// Reviews table
+app.get("/api/review", (req, res, next) => {
+    project.allReviews()
+        .then((makers) => {
+            res.json({
+                "message": "success",
+                "data": makers
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {

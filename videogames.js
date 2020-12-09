@@ -42,6 +42,11 @@ class VideoGames {
             "SELECT * FROM Publisher", [])
     }
 
+    allReviews() {
+        return this.all(
+            "SELECT DISTINCT r_gameID FROM Reviews ORDER BY r_gameID ASC", [])
+    }
+
 }
 
 module.exports = VideoGames
