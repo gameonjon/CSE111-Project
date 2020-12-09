@@ -24,7 +24,8 @@ textarea {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
-  margin: 0;
+  margin: 0 auto;
+  display: block;
 }
 
 button,
@@ -79,6 +80,10 @@ button {
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
+}
+
+button:hover {
+  border-color: #f7fafc;
 }
 
 ul {
@@ -153,13 +158,6 @@ textarea {
   padding: 0;
   line-height: inherit;
   color: inherit;
-}
-
-iframe,
-object,
-svg {
-  display: block;
-  vertical-align: middle;
 }
 
 .bg-transparent {
