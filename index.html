@@ -152,13 +152,53 @@
          var GamePlayGameID = document.getElementById('gameplay').value;
 
          console.log(GamesTitle);
-         console.log(PlatformSystems);
-         console.log(PublisherName);
-         console.log(ReviewsGameID);
-         console.log(ContractsGameID);
-         console.log(DeveloperName);
-         console.log(GamePlayGameID);
+         // console.log(PlatformSystems);
+         // console.log(PublisherName);
+         // console.log(ReviewsGameID);
+         // console.log(ContractsGameID);
+         // console.log(DeveloperName);
+         // console.log(GamePlayGameID);
 
+
+         var result = document.getElementById('result');
+         result.innerHTML = "";
+
+         const API_URL = `http://127.0.0.1:8092/api/myquery/${GamesTitle}`;
+         axios.get(`${API_URL}`)
+            .then(response => {
+               console.log(response.data.data);
+
+               if (response.data.data.length == 0) {
+                  return;
+               }
+
+               let thead = result.createTHead();
+               let row = thead.insertRow();
+               for (key in response.data.data[0]) {
+                  //console.log(key);
+
+                  let th = document.createElement("th");
+                  let text = document.createTextNode(key);
+                  th.appendChild(text);
+                  row.appendChild(th);
+               }
+               
+               for (x=0; x<response.data.data.length; x++) {
+                  //console.log(response.data.data[x].maker);
+
+                  let row = result.insertRow();
+                  for (k in response.data.data[x]) {
+                     console.log(k);
+
+                     let cell = row.insertCell();
+                     let text = document.createTextNode(response.data.data[x][k]);
+                     cell.appendChild(text);
+                  }
+               }
+            })
+            .catch(error =>
+               console.error('runQuery', error)
+            )
       }
    </script>
 </head>
@@ -179,42 +219,49 @@
    </nav>
 
    <!-- Execute and display the results. -->
-   <button class="rounded text-xl uppercase py-2 px-8 text-gray-100" name="runQ" onclick="runQuery()">Execute</button>
+   <button class="rounded text-xl uppercase py-2 px-8 text-gray-100" name="runQ" onclick="runQuery()">Execute Query</button>
 
    <div style="margin: 30px auto;">
       <label>Title:</label>
       <select name="title" id="title">
          <option value=''> Select an Option </option>
+         <option value='AllGames'>All</option>
       </select>
 
       <label>Systems:</label>
       <select name="systems" id="systems">
          <option value=''> Select an Option </option>
+         <option value='AllGameSystems'>All</option>
       </select>
 
       <label>Publisher:</label>
       <select name="publisher" id="publisher">
          <option value=''> Select an Option </option>
+         <option value='AllPublishers'>All</option>
       </select>
    
       <label>Review:</label>
       <select name="review" id="review">
          <option value=''> Select an Option </option>
+         <option value='AllReviews'>All</option>
       </select>
    
       <label>Contracts:</label>
       <select name="contract" id="contract">
          <option value=''> Select an Option </option>
+         <option value='AllContracts'>All</option>
       </select>
 
       <label>Developer:</label>
       <select name="developer" id="developer">
          <option value=''> Select an Option </option>
+         <option value='AllDevelopers'>All</option>
       </select>
 
       <label>GamePlay:</label>
       <select name="gameplay" id="gameplay">
          <option value=''> Select an Option </option>
+         <option value='AllGamePlay'>All</option>
       </select>
 
       <br><br><br>

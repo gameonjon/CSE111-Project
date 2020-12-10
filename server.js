@@ -137,6 +137,21 @@ app.get("/api/gameplay", (req, res, next) => {
         })
 });
 
+app.get("/api/myquery/AllGames", (req, res, next) => {
+        project.AllGameInfo()
+        .then((gtitle) => {
+            res.json({
+                "message": `success`,
+                "data": gtitle
+            })
+        })
+        .catch((err) => {
+            res.status(400).json({ "error": err.message });
+            return;
+        })
+
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {

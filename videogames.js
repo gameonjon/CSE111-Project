@@ -29,17 +29,17 @@ class VideoGames {
 
     allGames() {
         return this.all(
-            "SELECT * FROM Games", [])
+            "SELECT g_title FROM Games", [])
     }
 
     allPlatforms() {
         return this.all(
-            "SELECT * FROM Platform", [])
+            "SELECT pf_system FROM Platform", [])
     }
 
     allPublishers() {
         return this.all(
-            "SELECT * FROM Publisher", [])
+            "SELECT p_name FROM Publisher", [])
     }
 
     allReviews() {
@@ -61,6 +61,26 @@ class VideoGames {
         return this.all(
             "SELECT DISTINCT gp_gameID FROM GamePlay ORDER BY gp_gameID ASC", [])
     }
+
+    AllGameInfo() {
+        return this.all("SELECT * FROM Games", [])
+    }
+
+    AllPlatformsInfo() {
+        return this.all("SELECT * FROM Platform", [])
+    }
+
+    // GamesPlatforms(_platforms) {
+    //     return this.all(
+    //     "SELECT" +
+    //         "Games.g_title," +
+    //     "FROM" +
+    //         "Games," +
+    //         "Platform" + 
+    //     "WHERE" +
+    //         "Games.g_exkey = Platform.pf_exkey" +
+    //         "AND Platform.pf_system = ?", [_platforms])
+    // }
 
 }
 
