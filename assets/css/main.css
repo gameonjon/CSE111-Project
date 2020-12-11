@@ -168,6 +168,12 @@ textarea {
   background-color: #f7fafc;
 }
 
+.bg-yosemite-blue {
+  /* background-color:#07204d; */
+  /* background-color: #09154a; */
+  background-color: #041533;
+}
+
 .bg-gray-800 {
   background-color: #2d3748;
 }
