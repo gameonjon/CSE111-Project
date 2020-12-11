@@ -151,7 +151,7 @@
          var DeveloperName = document.getElementById('developer').value;
          var GamePlayGameID = document.getElementById('gameplay').value;
 
-         console.log(GamesTitle);
+         // console.log(GamesTitle);
          // console.log(PlatformSystems);
          // console.log(PublisherName);
          // console.log(ReviewsGameID);
@@ -163,7 +163,30 @@
          var result = document.getElementById('result');
          result.innerHTML = "";
 
-         const API_URL = `http://127.0.0.1:8092/api/myquery/${GamesTitle}`;
+         // Originally, it was this line ...
+         // const API_URL = `http://127.0.0.1:8092/api/myquery/${GamesTitle}`;
+
+         // I changed it to this ...
+         // ===========================================================================
+         var API_URL = '';
+
+         if (GamesTitle == 'AllGames') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showGamesTable`;
+         } else if (PlatformSystems == 'AllGameSystems') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showPlatformTable`;
+         } else if (PublisherName == 'AllPublishers') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showPublisherTable`;
+         } else if (ReviewsGameID == 'AllReviews') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showReviewsTable`;
+         } else if (ContractsGameID == 'AllContracts') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showContractsTable`;
+         } else if (DeveloperName == 'AllDevelopers') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showDeveloperTable`;
+         } else if (GamePlayGameID == 'AllGamePlay') {
+            var API_URL = `http://127.0.0.1:8092/api/query/showGamePlayTable`;
+         }
+         // ===========================================================================
+
          axios.get(`${API_URL}`)
             .then(response => {
                console.log(response.data.data);
@@ -195,6 +218,7 @@
                      cell.appendChild(text);
                   }
                }
+               var API_URL = '';
             })
             .catch(error =>
                console.error('runQuery', error)

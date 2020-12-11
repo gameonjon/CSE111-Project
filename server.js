@@ -137,19 +137,102 @@ app.get("/api/gameplay", (req, res, next) => {
         })
 });
 
-app.get("/api/myquery/AllGames", (req, res, next) => {
-        project.AllGameInfo()
-        .then((gtitle) => {
+app.get("/api/query/showGamesTable", (req, res, next) => {
+        project.showGamesTable()
+        .then((gtable) => {
             res.json({
                 "message": `success`,
-                "data": gtitle
+                "data": gtable
             })
         })
         .catch((err) => {
             res.status(400).json({ "error": err.message });
             return;
         })
+});
 
+app.get("/api/query/showPlatformTable", (req, res, next) => {
+    project.showPlatformTable()
+    .then((pftable) => {
+        res.json({
+            "message": `success`,
+            "data": pftable
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
+
+app.get("/api/query/showPublisherTable", (req, res, next) => {
+    project.showPublisherTable()
+    .then((ptable) => {
+        res.json({
+            "message": `success`,
+            "data": ptable
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
+
+app.get("/api/query/showReviewsTable", (req, res, next) => {
+    project.showReviewsTable()
+    .then((rtable) => {
+        res.json({
+            "message": `success`,
+            "data": rtable
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
+
+app.get("/api/query/showContractsTable", (req, res, next) => {
+    project.showContractsTable()
+    .then((ctable) => {
+        res.json({
+            "message": `success`,
+            "data": ctable
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
+
+app.get("/api/query/showDeveloperTable", (req, res, next) => {
+    project.showDeveloperTable()
+    .then((dtable) => {
+        res.json({
+            "message": `success`,
+            "data": dtable
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
+
+app.get("/api/query/showGamePlayTable", (req, res, next) => {
+    project.showGamePlayTable()
+    .then((gptable) => {
+        res.json({
+            "message": `success`,
+            "data": gptable
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
 });
 
 

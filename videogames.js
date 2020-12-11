@@ -62,25 +62,33 @@ class VideoGames {
             "SELECT DISTINCT gp_gameID FROM GamePlay ORDER BY gp_gameID ASC", [])
     }
 
-    AllGameInfo() {
+    showGamesTable() {
         return this.all("SELECT * FROM Games", [])
     }
 
-    AllPlatformsInfo() {
+    showPlatformTable() {
         return this.all("SELECT * FROM Platform", [])
     }
 
-    // GamesPlatforms(_platforms) {
-    //     return this.all(
-    //     "SELECT" +
-    //         "Games.g_title," +
-    //     "FROM" +
-    //         "Games," +
-    //         "Platform" + 
-    //     "WHERE" +
-    //         "Games.g_exkey = Platform.pf_exkey" +
-    //         "AND Platform.pf_system = ?", [_platforms])
-    // }
+    showPublisherTable() {
+        return this.all("SELECT * FROM Publisher", [])
+    }
+
+    showReviewsTable() {
+        return this.all("SELECT * FROM Reviews", [])
+    }
+
+    showContractsTable() {
+        return this.all("SELECT * FROM Contracts", [])
+    }
+
+    showDeveloperTable() {
+        return this.all("SELECT * FROM Developer", [])
+    }
+
+    showGamePlayTable() {
+        return this.all("SELECT * FROM GamePlay", [])
+    }
 
 }
 
