@@ -75,15 +75,11 @@ button {
   background-color: transparent;
   background-image: none;
   padding: 0;
-}
-
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  border: 4px #fff solid;
 }
 
 button:hover {
-  border-color: #f7fafc;
+  border-color: #4fd1c5;
 }
 
 ul {

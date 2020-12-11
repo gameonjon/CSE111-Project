@@ -242,17 +242,30 @@
       </ul>
    </nav>
 
+   <div class="text-xl py-8 px-8 md:px-48">
+      <h3 class=" uppercase">Tables</h3>
+      <ul class="w-full text-sm px-8">
+         <li class="font-semibold">Games(g_title, g_year, g_genre, g_exkey, g_gameID)</li>
+         <li class="font-semibold">Contracts(c_gameID, c_pubkey, c_devkey)</li>
+         <li class="font-semibold">Platform(pf_system, pf_exkey, pf_exclusive)</li>
+         <li class="font-semibold">Reviews(r_gameID, r_rating, r_resource, r_comment)</li>
+         <li class="font-semibold">Publisher(p_name, p_pubkey)</li>
+         <li class="font-semibold">Developer(d_name, d_devkey)</li>
+         <li class="font-semibold">GamePlay(gp_gameID, gp_url, gp_platform)</li>
+      </ul>
+   </div>
+   
    <!-- Execute and display the results. -->
    <button class="rounded text-xl uppercase py-2 px-8 text-gray-100" name="runQ" onclick="runQuery()">Execute Query</button>
 
-   <div style="margin: 30px auto;">
+   <div style="margin: 20px auto;">
       <label>Title:</label>
       <select name="title" id="title">
          <option value=''> Select an Option </option>
          <option value='AllGames'>All</option>
       </select>
 
-      <label>Systems:</label>
+      <label>Platform(s):</label>
       <select name="systems" id="systems">
          <option value=''> Select an Option </option>
          <option value='AllGameSystems'>All</option>
@@ -290,7 +303,7 @@
 
       <br><br><br>
       
-      <table name="result" id="result"></table>
+      <table name="result" id="result" style="margin: 20px auto;"></table>
    </div>
 
   <script src="./assets/js/star.js"></script>
