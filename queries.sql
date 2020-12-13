@@ -173,3 +173,31 @@ SELECT g_title, pf_system, p_name
 -- Q20: delete ratings 8.9 and lower
 DELETE FROM Reviews
     WHERE r_rating < 9;
+
+
+
+INSERT INTO Games(g_title, g_year, g_exkey)
+VALUES('Concrete Genie', '2019-01-01', 1);
+
+INSERT INTO Publisher(p_name) VALUES('Stark Industries');
+INSERT INTO Developer(d_name) VALUES('Peter Paves Co.');
+
+DROP VIEW GCPD;
+CREATE VIEW GCPD(title, year, publisher, developer) AS
+    SELECT g_title, g_year, p_name, d_name
+        FROM Games, Publisher, Developer, Contracts;
+        WHERE g_gameID = c_gameID AND
+            c_devkey = d_devkey AND
+            c_pubkey = p_pubkey;
+
+INSERT INTO GCPD VALUES('concrete Genie', '2019-01-01', 'Stark Industries', 'Peter Paves Co.');
+
+CREATE TRIGGER insertNewGames INSTEAD OF INSERT ON GCPD
+FOR EACH ROW
+BEGIN
+    INSERT INTO Games(g_title, g_year) VALUES(NEW.g_title, NEW.g_year);
+
+    INSERT INTO Publisher(p_name) VALUES(NEW.p_name);
+
+    INSERT INTO Developer(d_name) VALUES(NEW.d_name);
+END;
