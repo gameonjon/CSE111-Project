@@ -45,6 +45,10 @@ class VideoGames {
         return this.all("SELECT DISTINCT r_gameID FROM Reviews UNION SELECT name FROM PRAGMA_TABLE_INFO('Reviews') ORDER BY r_gameID DESC", [])
     }
 
+    // allReviews() {
+    //     return this.all("SELECT name FROM PRAGMA_TABLE_INFO('Reviews')", [])
+    // }
+
     allContracts() {
         return this.all(
             "SELECT DISTINCT c_gameID FROM Contracts UNION SELECT name FROM PRAGMA_TABLE_INFO('Contracts') ORDER BY c_gameID DESC", [])
@@ -76,7 +80,7 @@ class VideoGames {
     }
 
     showReviewsTable() {
-        return this.all("SELECT r_gameID AS GameID, r_rating AS Rating, r_resource AS Resource, r_comment AS Comment FROM Reviews", [])
+        return this.all("SELECT r_resource AS Reviewer, r_rating AS Rating, r_gameID AS GameID, r_comment AS Review FROM Reviews", [])
     }
 
     showContractsTable() {
@@ -91,6 +95,17 @@ class VideoGames {
         return this.all("SELECT gp_gameID AS GameID, gp_url AS URL, gp_platform AS Watch_On FROM GamePlay", [])
     }
     // ===================================================
+
+    GameDeveloper() {
+        return this.all("SELECT g_title AS Title, d_name AS Developer_Name FROM Games, Contracts, Developer WHERE g_gameID = c_gameID AND c_devkey = d_devkey ORDER BY Developer_Name", [])
+    }
+
+    GameReviews() {
+        return this.all("SELECT Games.g_title AS Title, Reviews.r_resource AS Reviewer, Reviews.r_rating AS Rating, Reviews.r_comment AS Review " +
+            "FROM Games, Reviews " +
+            "WHERE Games.g_gameID = Reviews.r_gameID " +
+            "ORDER BY Title ASC", [])
+    }
 
 
 }

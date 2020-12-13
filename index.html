@@ -150,27 +150,20 @@
          var ContractsGameID = document.getElementById('contract').value;
          var DeveloperName = document.getElementById('developer').value;
          var GamePlayGameID = document.getElementById('gameplay').value;
-
-         // console.log(GamesTitle);
-         // console.log(PlatformSystems);
-         // console.log(PublisherName);
-         // console.log(ReviewsGameID);
-         // console.log(ContractsGameID);
-         // console.log(DeveloperName);
-         // console.log(GamePlayGameID);
-
+     
 
          var result = document.getElementById('result');
          result.innerHTML = "";
 
-         // Originally, it was this line ...
-         // const API_URL = `http://127.0.0.1:8092/api/myquery/${GamesTitle}`;
-
-         // I changed it to this ...
+         // This is where we essentially route the request ....
          // ===========================================================================
          var API_URL = '';
-
-         if (GamesTitle == 'AllGames') {
+         
+         if (GamesTitle == 'g_title' && DeveloperName == 'd_name') {
+            var API_URL = `http://127.0.0.1:8092/api/query/GameDev`;
+         } else if (GamesTitle == 'g_title' && ReviewsGameID == 'r_rating') {
+            var API_URL = `http://127.0.0.1:8092/api/query/GameReviews`;
+         } else if (GamesTitle == 'AllGames') {
             var API_URL = `http://127.0.0.1:8092/api/query/showGamesTable`;
          } else if (PlatformSystems == 'AllGameSystems') {
             var API_URL = `http://127.0.0.1:8092/api/query/showPlatformTable`;
@@ -184,7 +177,7 @@
             var API_URL = `http://127.0.0.1:8092/api/query/showDeveloperTable`;
          } else if (GamePlayGameID == 'AllGamePlay') {
             var API_URL = `http://127.0.0.1:8092/api/query/showGamePlayTable`;
-         }
+         } 
          // ===========================================================================
 
          axios.get(`${API_URL}`)
@@ -226,7 +219,7 @@
       }
    </script>
 </head>
-    
+
 <body class="homescreen m-0 flex flex-col bg-yosemite-blue h-screen text-gray-100" 
       onload="dropDownGamesTitle(); dropDownPlatformSystems(); dropDownPublisherName(); dropDownReviewsGameID(); dropDownContractsGameID(); dropDownDeveloperName(); dropDownGamePlayGameID();">
 
@@ -237,22 +230,32 @@
       </p>
       <ul class="flex justify-evenly w-full text-xl py-8 px-0 xl:px-48 xl:w-1/2">
          <li>
-            Authors: Ediel & Jonathan
+            Created by Ediel & Jonathan
          </li>
       </ul>
    </nav>
 
-   <div class="text-xl py-8 px-8 md:px-48">
-      <h3 class=" uppercase">Tables</h3>
-      <ul class="w-full text-sm px-8">
-         <li class="font-semibold">Games(g_title, g_year, g_genre, g_exkey, g_gameID)</li>
-         <li class="font-semibold">Contracts(c_gameID, c_pubkey, c_devkey)</li>
-         <li class="font-semibold">Platform(pf_system, pf_exkey, pf_exclusive)</li>
-         <li class="font-semibold">Reviews(r_gameID, r_rating, r_resource, r_comment)</li>
-         <li class="font-semibold">Publisher(p_name, p_pubkey)</li>
-         <li class="font-semibold">Developer(d_name, d_devkey)</li>
-         <li class="font-semibold">GamePlay(gp_gameID, gp_url, gp_platform)</li>
-      </ul>
+   <div class="flex justify-evenly">
+      <div class="text-xl py-2 px-0">
+         <h3 class=" uppercase">Tables</h3>
+         <ul class="text-sm px-8">
+            <li class="font-semibold">Games(g_title, g_year, g_genre, g_exkey, g_gameID)</li>
+            <li class="font-semibold">Contracts(c_gameID, c_pubkey, c_devkey)</li>
+            <li class="font-semibold">Platform(pf_system, pf_exkey, pf_exclusive)</li>
+            <li class="font-semibold">Reviews(r_gameID, r_rating, r_resource, r_comment)</li>
+            <li class="font-semibold">Publisher(p_name, p_pubkey)</li>
+            <li class="font-semibold">Developer(d_name, d_devkey)</li>
+            <li class="font-semibold">GamePlay(gp_gameID, gp_url, gp_platform)</li>
+         </ul>
+      </div>
+      <div class="text-xl py-2 px-0">
+         <h3 class=" uppercase">Examples</h3>
+         <ul class="text-sm px-8">
+            <li class="font-semibold">1. Display all the games and the corresponding developer. <br> Select 'g_title' under Game, 'd_name' under Developer, and hit 'Execute Query'.</li>
+            <li class="font-semibold">2. Display all the games and the corresponding review information. <br> Select 'g_title' under Game, 'r_rating' under Review, and hit 'Execute Query'.</li>
+            <!-- <li class="font-semibold">3. Display all the games that are availabe on the platform of your choosing and who have a rating higher than a specific value.</li> -->
+         </ul>
+      </div>
    </div>
    
    <!-- Execute and display the results. -->
@@ -281,6 +284,15 @@
       <select name="review" id="review">
          <option value=''> Select an Option </option>
          <option value='AllReviews'>All Data</option>
+         <!-- <option value='1'>1</option>
+         <option value='2'>2</option>
+         <option value='3'>3</option>
+         <option value='4'>4</option>
+         <option value='5'>5</option>
+         <option value='6'>6</option>
+         <option value='7'>7</option>
+         <option value='8'>8</option>
+         <option value='9'>9</option> -->
       </select>
    
       <label>Contracts:</label>

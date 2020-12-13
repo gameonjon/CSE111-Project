@@ -1,5 +1,7 @@
 // Create express app
+const { race } = require("bluebird")
 var express = require("express")
+const { platform } = require("os")
 var app = express()
 
 
@@ -235,6 +237,33 @@ app.get("/api/query/showGamePlayTable", (req, res, next) => {
     })
 });
 
+app.get("/api/query/GameDev", (req, res, next) => {
+    project.GameDeveloper()
+    .then((gamedev) => {
+        res.json({
+            "message": `success`,
+            "data": gamedev
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
+
+app.get("/api/query/GameReviews", (req, res, next) => {
+    project.GameReviews()
+    .then((gamereviews) => {
+        res.json({
+            "message": `success`,
+            "data": gamereviews
+        })
+    })
+    .catch((err) => {
+        res.status(400).json({ "error": err.message });
+        return;
+    })
+});
 
 // Default response for any other request
 app.use(function (req, res) {
