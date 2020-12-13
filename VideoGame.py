@@ -50,10 +50,12 @@ def createTables(_conn):
         _conn.execute(sql)
 
         sql = """CREATE TABLE Contracts (
-                    c_gameID INT,
-                    c_pubkey decimal(12,0),
-                    c_devkey decimal(12,0),
-                    FOREIGN KEY (c_gameID) REFERENCES Games(g_gameID)
+                    c_gameID INTEGER,
+                    c_pubkey INTEGER,
+                    c_devkey INTEGER,
+                    FOREIGN KEY (c_gameID) REFERENCES Games(g_gameID),
+                    FOREIGN KEY (c_pubkey) REFERENCES Publisher(p_pubkey),
+                    FOREIGN KEY (c_devkey) REFERENCES Developer(d_devkey)
                 )"""
         _conn.execute(sql)
 
@@ -73,13 +75,13 @@ def createTables(_conn):
 
         sql = """CREATE TABLE Publisher (
                     p_name varchar(30) NOT NULL,
-                    p_pubkey decimal(12,0) NOT NULL
+                    p_pubkey INTEGER PRIMARY KEY AUTOINCREMENT
                 )"""
         _conn.execute(sql)
 
         sql = """CREATE TABLE Developer (
                     d_name varchar(30) NOT NULL,
-                    d_devkey decimal(12,0) NOT NULL
+                    d_devkey INTEGER PRIMARY KEY AUTOINCREMENT
                 )"""
         _conn.execute(sql)
 
