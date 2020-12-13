@@ -41,18 +41,19 @@ def createTables(_conn):
         sql = """CREATE TABLE Games (
                     g_title varchar(30) NOT NULL,
                     g_year DATE NOT NULL,
-                    g_genre varchar(15) NOT NULL,
-                    g_exkey decimal(5,0) NOT NULL,
-                    g_gameID decimal(12,0) NOT NULL                    
+                    g_genre varchar(15),
+                    g_exkey decimal(5,0),
+                    g_gameID INTEGER PRIMARY KEY AUTOINCREMENT                   
                     )"""
                     # g_pubkey decimal(12,0) NOT NULL,
                     # g_devkey decimal(12,0) NOT NULL
         _conn.execute(sql)
 
         sql = """CREATE TABLE Contracts (
-                    c_gameID decimal(12,0) NOT NULL,
+                    c_gameID INT,
                     c_pubkey decimal(12,0),
-                    c_devkey decimal(12,0)
+                    c_devkey decimal(12,0),
+                    FOREIGN KEY (c_gameID) REFERENCES Games(g_gameID)
                 )"""
         _conn.execute(sql)
 
@@ -64,7 +65,7 @@ def createTables(_conn):
         _conn.execute(sql)
 
         sql = """CREATE TABLE Reviews (
-                    r_gameID decimal(12,0) NOT NULL,
+                    r_gameID INTEGER NOT NULL,
                     r_rating decimal(2,1) NOT NULL,
                     r_resource varchar(25) NOT NULL,
                     r_comment VARCHAR(50))"""
@@ -83,7 +84,7 @@ def createTables(_conn):
         _conn.execute(sql)
 
         sql = """CREATE TABLE GamePlay (
-                    gp_gameID decimal(12,0) NOT NULL,
+                    gp_gameID INTEGER NOT NULL,
                     gp_url varchar(15) NOT NULL,
                     gp_platform varchar(30) NOT NULL
                 )"""
